@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Life extends Model {
 
-    int numAlive;
+    int lives;  // field: number of lives on map
     // Constructor: with seed
     public Life(int size, int seed) {
         super(size);
@@ -14,6 +14,7 @@ public class Life extends Model {
         for (int i = 0; i < this.size; ++i) {
             for (int j = 0; j < this.size; ++j) {
                 this.map[i][j] = random.nextBoolean() ? 1 : 0;
+                this.lives += this.map[i][j] == 1 ? 1 : 0;
             }
         }
     }
@@ -26,30 +27,18 @@ public class Life extends Model {
         for (int i = 0; i < this.size; ++i) {
             for (int j = 0; j < this.size; ++j) {
                 this.map[i][j] = random.nextBoolean() ? 1 : 0;
+                this.lives += this.map[i][j] == 1 ? 1 : 0;
             }
         }
     }
 
     // propagate forward <gens> generations
     public void propagate(int gens) {
-//        Thread thread = new Thread(new Runnable() {
-//            public void run() {
-//                generate();
-//                view();
-//                try {
-//                    Thread.sleep((long) (0.5 * 1000));
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
         for (int i = 0; i < gens; ++i) {
             generate();
             System.out.println("Generations #" + i);
-            System.out.println("Alive: " + this.numAlive);
+            System.out.println("Alive: " + this.lives);
             view();
-            // apply Thread and Callback here
-//            thread.start();
             try {
                 if (System.getProperties().contains("Windows"))
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -66,7 +55,7 @@ public class Life extends Model {
         // create a new model of the next generation
         Model future = new Model(this.size) {};
 
-        this.numAlive = 0;
+        int lives = 0;
         // check every cell for its survival conditions
         for (int row = 0; row < this.size; ++row) {
             for (int col = 0; col < this.size; ++col) {
@@ -78,10 +67,11 @@ public class Life extends Model {
                 } else {
                     future.map[row][col] = 0;
                 }
-                this.numAlive += (future.map[row][col] == 1) ? 1 : 0;
+                lives += (future.map[row][col] == 1) ? 1 : 0;
             }
         }
         this.map = future.map;
+        this.lives = lives;
     }
 
     // count the number of neighbors around a cell
