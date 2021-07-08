@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Life extends Model {
 
-    // Constructor
+    // Constructor: with seed
     public Life(int size, int seed) {
         super(size);
 
@@ -16,12 +16,25 @@ public class Life extends Model {
         }
     }
 
+    // Constructor: without seed
+    public Life(int size) {
+        super(size);
+
+        Random random = new Random();
+        for (int i = 0; i < this.size; ++i) {
+            for (int j = 0; j < this.size; ++j) {
+                this.map[i][j] = random.nextBoolean() ? 1 : 0;
+            }
+        }
+    }
+
     // propagate forward <gens> generations
     public void propagate(int gens) {
         for (int i = 0; i < gens; ++i) {
             generate();
+            // apply Thread here
+            view();
         }
-        view();
     }
 
     // generate a new future from the current generation
