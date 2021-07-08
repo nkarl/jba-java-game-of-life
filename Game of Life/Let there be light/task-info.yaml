@@ -228,6 +228,15 @@ files:
         }
     }
   learner_created: false
+- name: src/life/Model.java
+  visible: true
+  learner_created: true
+- name: src/life/Life.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/294/implement#comment
-status: Failed
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Thu, 08 Jul 2021 04:33:02 UTC
 record: -1
