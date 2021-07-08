@@ -188,6 +188,58 @@ files:
         }
     }
   learner_created: false
+- name: src/life/Model.java
+  visible: true
+  text: |
+    package life;
+
+    public abstract class Model {
+
+        int size;
+        int[][] map;
+
+        Model(int size) {
+            this.size = size;
+            this.map = new int[size][size];
+        }
+    }
+  learner_created: true
+- name: src/life/Life.java
+  visible: true
+  text: |
+    package life;
+
+    import java.util.Random;
+
+    public class Life extends Model {
+
+        public Life(int size, int seed) {
+            super(size);
+
+            Random random = new Random(seed);
+            for (int i = 0; i < this.size; ++i) {
+                for (int j = 0; j < this.size; ++j) {
+                    this.map[i][j] = random.nextBoolean() ? 1 : 0;
+                }
+            }
+        }
+
+        public void view() {
+            for (int i = 0; i < this.size; ++i) {
+                for (int j = 0; j < this.size; ++j) {
+                    if (this.map[i][j] == 1)
+                        System.out.print('O');
+                    else
+                        System.out.print(' ');
+                }
+                System.out.println();
+            }
+        }
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/295/implement#comment
 status: Solved
+feedback:
+  message: Congratulations!
+  time: Thu, 08 Jul 2021 05:02:31 UTC
 record: 1
