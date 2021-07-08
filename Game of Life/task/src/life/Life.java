@@ -1,9 +1,11 @@
 package life;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class Life extends Model {
 
+    int numAlive;
     // Constructor: with seed
     public Life(int size, int seed) {
         super(size);
@@ -30,10 +32,32 @@ public class Life extends Model {
 
     // propagate forward <gens> generations
     public void propagate(int gens) {
+//        Thread thread = new Thread(new Runnable() {
+//            public void run() {
+//                generate();
+//                view();
+//                try {
+//                    Thread.sleep((long) (0.5 * 1000));
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
         for (int i = 0; i < gens; ++i) {
             generate();
-            // apply Thread here
+            System.out.println("Generations #" + i);
+            System.out.println("Alive: " + this.numAlive);
             view();
+            // apply Thread and Callback here
+//            thread.start();
+            try {
+                if (System.getProperties().contains("Windows"))
+                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                else
+                    Runtime.getRuntime().exec("clear");
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -42,6 +66,7 @@ public class Life extends Model {
         // create a new model of the next generation
         Model future = new Model(this.size) {};
 
+        this.numAlive = 0;
         // check every cell for its survival conditions
         for (int row = 0; row < this.size; ++row) {
             for (int col = 0; col < this.size; ++col) {
@@ -53,6 +78,7 @@ public class Life extends Model {
                 } else {
                     future.map[row][col] = 0;
                 }
+                this.numAlive += (future.map[row][col] == 1) ? 1 : 0;
             }
         }
         this.map = future.map;
