@@ -25,24 +25,6 @@ files:
         }
     }
   learner_created: false
-- name: src/test.javaBAK
-  visible: true
-  learner_created: false
-- name: src/myLifeTest.py
-  visible: true
-  learner_created: false
-- name: bin/main/test.javaBAK
-  visible: true
-  learner_created: false
-- name: src/life/engine/Life.javaBAK
-  visible: true
-  learner_created: false
-- name: bin/main/life/engine/Life.javaBAK
-  visible: true
-  learner_created: false
-- name: bin/main/life/engine/Life$1.class
-  visible: true
-  learner_created: false
 - name: test/GameOfLifeTest.java
   visible: false
   text: |
@@ -253,5 +235,8 @@ files:
     }
   learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/298/implement#comment
-status: Solved
+status: Failed
+feedback:
+  message: Compilation Failed
+  time: Thu, 08 Jul 2021 05:57:53 UTC
 record: 3
